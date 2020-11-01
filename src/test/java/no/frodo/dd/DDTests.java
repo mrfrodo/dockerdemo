@@ -1,10 +1,10 @@
-package no.frodo.dockerdemo;
+package no.frodo.dd;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DockerDemoTests {
+class DDTests {
 
 	@Test
 	void contextLoads() {

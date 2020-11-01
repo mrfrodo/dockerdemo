@@ -1,8 +1,8 @@
-package no.frodo.dockerdemo.contrroller;
+package no.frodo.dd.contrroller;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import no.frodo.dockerdemo.domain.Greeting;
+import no.frodo.dd.domain.Greeting;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;

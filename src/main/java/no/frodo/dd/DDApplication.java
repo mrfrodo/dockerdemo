@@ -1,13 +1,13 @@
-package no.frodo.dockerdemo;
+package no.frodo.dd;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DockerDemoApplication {
+public class DDApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DockerDemoApplication.class, args);
+		SpringApplication.run(DDApplication.class, args);
 	}
 
 }

@@ -1,4 +1,4 @@
-package no.frodo.dockerdemo.domain;
+package no.frodo.dd.domain;
 
 public class Greeting {
 
