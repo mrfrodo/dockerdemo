@@ -1,13 +1,13 @@
 package no.frodo.dd.controller;
 
+import no.frodo.dd.domain.CustomerEntity;
 import no.frodo.dd.domain.CustomerRequestDTO;
 import no.frodo.dd.domain.CustomerResponseDTO;
 import no.frodo.dd.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("c")
@@ -17,12 +17,17 @@ public class CustomerController {
     CustomerService customerService;
 
     @PostMapping
-    CustomerResponseDTO saveCustomer(@RequestBody
-                                     CustomerRequestDTO customerRequestDTO) {
+    int saveCustomer(@RequestBody CustomerRequestDTO customerRequestDTO) {
+        return customerService.saveCustomer(customerRequestDTO);
+    }
 
-        CustomerResponseDTO customerResponseDTO
-                = customerService.saveCustomer(customerRequestDTO);
+    @GetMapping
+    CustomerResponseDTO getCustomer(@RequestParam String cid) {
+        return customerService.getCustomer(cid);
+    }
 
-        return  customerResponseDTO;
+    @GetMapping("all")
+    List<CustomerEntity> getAllCustomers() {
+        return customerService.getAllCustomers();
     }
 }

@@ -11,11 +11,12 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerDTO  {
-    String customerId;
-    String customerName;
-    String customerType;
-    String customerOwner;
-    Date customerCreationDate;
+public class CustomerEntity {
 
+    Long dd_id;
+    String customer_id;
+    String customer_name;
+    String customer_type;
+    String customer_owner;
+    Date customer_creationdate;
 }

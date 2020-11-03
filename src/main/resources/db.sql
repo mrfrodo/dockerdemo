@@ -4,5 +4,5 @@ create table if not exists customer (
   customer_name text,
   customer_type text,
   customer_owner text,
-  customer_creationdate date,
+  customer_creationdate date
 );
