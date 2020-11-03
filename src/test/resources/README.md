@@ -4,5 +4,11 @@ curl -i -X POST -L localhost:8080/c \
   
   
  curl -i -X GET -L localhost:8080/c?cid=frodo_inc 
+ 
+ curl -i -X DELETE -L localhost:8080/c?cid=frodo_inc 
+ 
+ curl -i -X GET -L localhost:8080/c/all
+ 
+   
   
   
