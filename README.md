@@ -30,3 +30,8 @@ CREATE DATABASE dockerdb;
 
 ## Grant
 grant all privileges on database dockerdb to user1;
+
+-----------------------------------------------------------------------
+
+## When all is set up
+docker start pgl
