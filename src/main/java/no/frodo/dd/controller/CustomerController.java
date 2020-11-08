@@ -18,21 +18,25 @@ public class CustomerController {
 
     @PostMapping
     int saveCustomer(@RequestBody CustomerRequestDTO customerRequestDTO) {
+        System.out.println("** save");
         return customerService.saveCustomer(customerRequestDTO);
     }
 
     @DeleteMapping
     int deleteCustomer(@RequestParam String cid) {
+        System.out.println("** delete");
         return customerService.deleteCustomer(cid);
     }
 
     @GetMapping
     CustomerResponseDTO getCustomer(@RequestParam String cid) {
+        System.out.println("** get one");
         return customerService.getCustomer(cid);
     }
 
     @GetMapping("all")
     List<CustomerEntity> getAllCustomers() {
+        System.out.println("** get all");
         return customerService.getAllCustomers();
     }
 }
