@@ -10,5 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerResponseDTO {
-    CustomerDTO customerDTO;
+    String customerId;
+    String customerName;
+    String customerType;
+    String customerOwner;
 }

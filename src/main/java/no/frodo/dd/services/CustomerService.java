@@ -4,6 +4,7 @@ import no.frodo.dd.domain.CustomerEntity;
 import no.frodo.dd.domain.CustomerRequestDTO;
 import no.frodo.dd.domain.CustomerResponseDTO;
 import no.frodo.dd.repository.CustomerRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,9 @@ public class CustomerService {
 
     @Autowired
     CustomerRepository customerRepository;
+
+    @Autowired
+    ModelMapper modelMapper;
 
     public int saveCustomer(CustomerRequestDTO customerRequestDTO) {
         String customerId = createCustomerId(customerRequestDTO);
@@ -29,7 +33,12 @@ public class CustomerService {
         Optional<CustomerEntity> optionalCustomer = customerRepository.findById(cid);
         if (optionalCustomer.isPresent()) {
             CustomerEntity customerEntity = optionalCustomer.get();
+            CustomerResponseDTO customerResponseDTO = convertToDto(customerEntity);
+            return customerResponseDTO;
         }
+
+
+
         return null;
     }
 
@@ -44,5 +53,10 @@ public class CustomerService {
         String customerId= splitted[0]+"_"+splitted[1];
         return customerId;
 
+    }
+
+    protected CustomerResponseDTO convertToDto(CustomerEntity customerEntity) {
+        CustomerResponseDTO customerResponseDTO = modelMapper.map(customerEntity, CustomerResponseDTO.class);
+        return customerResponseDTO;
     }
 }

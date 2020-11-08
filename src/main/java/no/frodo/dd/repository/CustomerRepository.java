@@ -23,7 +23,7 @@ public class CustomerRepository {
         int updated = 0;
         try {
             updated = jdbcTemplate.update("insert into public.customer (customer_id, customer_name, customer_type, customer_owner) values(?,?,?,?)",
-                    customerId, customerRequestDTO.getCustomerName(), customerRequestDTO.getCustomerOwner(), customerRequestDTO.getCustomerType());
+                    customerId, customerRequestDTO.getCustomerName(), customerRequestDTO.getCustomerType(), customerRequestDTO.getCustomerOwner());
         } catch (Exception e) {
             System.out.println("  ** Error " + e.getMessage());
         }

@@ -14,9 +14,9 @@ import java.util.Date;
 public class CustomerEntity {
 
     Long dd_id;
-    String customer_id;
-    String customer_name;
-    String customer_type;
-    String customer_owner;
+    String customerId;
+    String customerName;
+    String customerType;
+    String customerOwner;
     Date customer_creationdate;
 }
