@@ -17,9 +17,11 @@ public class CustomerService {
     CustomerRepository customerRepository;
 
     public int saveCustomer(CustomerRequestDTO customerRequestDTO) {
-        return customerRepository.save(customerRequestDTO);
-
+        String customerId = createCustomerId(customerRequestDTO);
+        return customerRepository.save(customerRequestDTO, customerId);
     }
+
+
 
     public CustomerResponseDTO getCustomer(String cid) {
         Optional<CustomerEntity> optionalCustomer = customerRepository.findById(cid);
@@ -32,5 +34,13 @@ public class CustomerService {
     public List<CustomerEntity> getAllCustomers() {
         List<CustomerEntity> allCustomers = customerRepository.findAll();
         return allCustomers;
+    }
+
+    private String createCustomerId(CustomerRequestDTO customerRequestDTO) {
+        String customerName = customerRequestDTO.getCustomerName();
+        String[] splitted = customerName.split(" ");
+        String customerId= splitted[0]+"_"+splitted[1];
+        return customerId;
+
     }
 }

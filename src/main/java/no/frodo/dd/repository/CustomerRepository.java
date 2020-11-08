@@ -20,12 +20,12 @@ public class CustomerRepository {
                 .queryForObject("select count(*) from customer", Integer.class);
     }
 
-    public int save(CustomerRequestDTO customerRequestDTO) {
+    public int save(CustomerRequestDTO customerRequestDTO, String customerId) {
         int updated = 0;
         try {
             updated = jdbcTemplate.update(
                     "insert into public.customer (customer_id, customer_name, customer_type, customer_owner) values(?,?,?,?)",
-                    customerRequestDTO.getCustomerId(), customerRequestDTO.getCustomerName(), customerRequestDTO.getCustomerOwner(), customerRequestDTO.getCustomerType());
+                    customerId, customerRequestDTO.getCustomerName(), customerRequestDTO.getCustomerOwner(), customerRequestDTO.getCustomerType());
         } catch (Exception e) {
             System.out.println("  ** Error " + e.getMessage());
         }
