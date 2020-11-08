@@ -21,7 +21,9 @@ public class CustomerService {
         return customerRepository.save(customerRequestDTO, customerId);
     }
 
-
+    public int deleteCustomer(String cid) {
+        return customerRepository.deleteCustomerByCustomerId(cid);
+    }
 
     public CustomerResponseDTO getCustomer(String cid) {
         Optional<CustomerEntity> optionalCustomer = customerRepository.findById(cid);

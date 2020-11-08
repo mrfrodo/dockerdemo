@@ -16,15 +16,13 @@ public class CustomerRepository {
     JdbcTemplate jdbcTemplate;
 
     public int count() {
-        return jdbcTemplate
-                .queryForObject("select count(*) from customer", Integer.class);
+        return jdbcTemplate .queryForObject("select count(*) from customer", Integer.class);
     }
 
     public int save(CustomerRequestDTO customerRequestDTO, String customerId) {
         int updated = 0;
         try {
-            updated = jdbcTemplate.update(
-                    "insert into public.customer (customer_id, customer_name, customer_type, customer_owner) values(?,?,?,?)",
+            updated = jdbcTemplate.update("insert into public.customer (customer_id, customer_name, customer_type, customer_owner) values(?,?,?,?)",
                     customerId, customerRequestDTO.getCustomerName(), customerRequestDTO.getCustomerOwner(), customerRequestDTO.getCustomerType());
         } catch (Exception e) {
             System.out.println("  ** Error " + e.getMessage());
@@ -32,6 +30,10 @@ public class CustomerRepository {
 
         return updated;
 
+    }
+
+    public int deleteCustomerByCustomerId(String cid) {
+        return jdbcTemplate.update("delete from customer where customer_id = ?", cid);
     }
 
     public Optional<CustomerEntity> findById(String cid) {

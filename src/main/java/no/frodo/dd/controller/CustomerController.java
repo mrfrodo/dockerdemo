@@ -21,6 +21,11 @@ public class CustomerController {
         return customerService.saveCustomer(customerRequestDTO);
     }
 
+    @DeleteMapping
+    int deleteCustomer(@RequestParam String cid) {
+        return customerService.deleteCustomer(cid);
+    }
+
     @GetMapping
     CustomerResponseDTO getCustomer(@RequestParam String cid) {
         return customerService.getCustomer(cid);
