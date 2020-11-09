@@ -24,6 +24,10 @@ public class CustomerService {
         return customerRepository.save(customerRequestDTO, customerId);
     }
 
+    public int updateCustomer(CustomerRequestDTO customerRequestDTO) {
+        return 0;
+    }
+
     public int deleteCustomer(String cid) {
         return customerRepository.deleteCustomerByCustomerId(cid);
     }
@@ -55,4 +59,6 @@ public class CustomerService {
         CustomerResponseDTO customerResponseDTO = modelMapper.map(customerEntity, CustomerResponseDTO.class);
         return customerResponseDTO;
     }
+
+
 }

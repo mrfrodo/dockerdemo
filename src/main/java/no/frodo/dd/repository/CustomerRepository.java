@@ -2,6 +2,7 @@ package no.frodo.dd.repository;
 
 import no.frodo.dd.domain.CustomerEntity;
 import no.frodo.dd.domain.CustomerRequestDTO;
+import no.frodo.dd.domain.CustomerResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -35,6 +36,16 @@ public class CustomerRepository {
 
     public int deleteCustomerByCustomerId(String cid) {
         return jdbcTemplate.update("delete from customer where customer_id = ?", cid);
+    }
+
+    public int deleteAll () {
+        return jdbcTemplate.update("delete from customer");
+    }
+
+    public int update(CustomerResponseDTO customerResponseDTO) {
+        return jdbcTemplate.update(
+                "update customer set customer_name = ?, customer_type = ?, customer_owner = ?, customer_creationdate = ? " +
+                        "where custoner_id = ?");
     }
 
     public Optional<CustomerEntity> findById(String cid) {

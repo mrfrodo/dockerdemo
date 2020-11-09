@@ -22,6 +22,12 @@ public class CustomerController {
         return customerService.saveCustomer(customerRequestDTO);
     }
 
+    @PutMapping
+    int updateCustomer(@RequestBody CustomerRequestDTO customerRequestDTO) {
+        System.out.println("** save");
+        return customerService.updateCustomer(customerRequestDTO);
+    }
+
     @DeleteMapping
     int deleteCustomer(@RequestParam String cid) {
         System.out.println("** delete");
