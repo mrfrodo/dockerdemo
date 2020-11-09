@@ -3,6 +3,7 @@ package no.frodo.dd.repository;
 import no.frodo.dd.domain.CustomerEntity;
 import no.frodo.dd.domain.CustomerRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -54,8 +55,11 @@ public class CustomerRepository {
                         ));
                     }
             );
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println("EMPTY DATA BACK ERROR " + e.getMessage());
+            return Optional.empty();
         } catch (Exception e) {
-            System.out.println("ERROR " + e.getMessage());
+            System.out.println("UNKNOWN ERROR " + e.getMessage());
             return Optional.empty();
         }
     }
