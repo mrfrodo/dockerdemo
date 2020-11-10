@@ -35,7 +35,8 @@ public class CustomerRepository {
     }
 
     public int deleteCustomerByCustomerId(String cid) {
-        return jdbcTemplate.update("delete from customer where customer_id = ?", cid);
+        int update = jdbcTemplate.update("delete from customer where customer_id = ?", cid);
+        return update;
     }
 
     public int deleteAll () {
@@ -43,21 +44,22 @@ public class CustomerRepository {
     }
 
     public int update(CustomerResponseDTO customerResponseDTO) {
-        return jdbcTemplate.update(
+        int update = jdbcTemplate.update(
                 "update customer set customer_name = ?, customer_type = ?, customer_owner = ?, customer_creationdate = ? " +
                         "where custoner_id = ?");
+        return update;
     }
 
     public Optional<CustomerEntity> findById(String cid) {
         try {
-            return jdbcTemplate.queryForObject(
+            Optional<CustomerEntity> customerEntity = jdbcTemplate.queryForObject(
                     "select dd_id,customer_id,customer_name,customer_type,customer_owner,customer_creationdate from customer where customer_id = ?",
                     new Object[]{cid},
                     (rs, rowNum) ->
                     {
-                        long dd_id = rs.getLong("dd_id");
+                        Object dd_id = rs.getObject("dd_id");
                         return Optional.of(new CustomerEntity(
-                                dd_id,
+                                (Integer) dd_id,
                                 rs.getString("customer_id"),
                                 rs.getString("customer_name"),
                                 rs.getString("customer_type"),
@@ -66,6 +68,21 @@ public class CustomerRepository {
                         ));
                     }
             );
+            return customerEntity;
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println("EMPTY DATA BACK ERROR " + e.getMessage());
+            return Optional.empty();
+        } catch (Exception e) {
+            System.out.println("UNKNOWN ERROR " + e.getMessage());
+            return Optional.empty();
+        }
+    }
+
+    public Optional<CustomerEntity> findByIdWithCustomRowMapper(String cid) {
+        try {
+            String sql = "select dd_id,customer_id,customer_name,customer_type,customer_owner,customer_creationdate from customer where customer_id = ?";
+            CustomerEntity customerEntity = jdbcTemplate.queryForObject(sql, new Object[]{cid}, new CustomerRowMapper());
+            return Optional.of(customerEntity);
         } catch (EmptyResultDataAccessException e) {
             System.out.println("EMPTY DATA BACK ERROR " + e.getMessage());
             return Optional.empty();
@@ -80,7 +97,7 @@ public class CustomerRepository {
                 "select dd_id,customer_id,customer_name,customer_type,customer_owner,customer_creationdate from customer",
                 (rs, rowNum) ->
                         new CustomerEntity(
-                                rs.getLong("dd_id"),
+                                (Integer)rs.getObject("dd_id"),
                                 rs.getString("customer_id"),
                                 rs.getString("customer_name"),
                                 rs.getString("customer_type"),

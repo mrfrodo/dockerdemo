@@ -13,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class CustomerEntity {
 
-    Long dd_id;
+    Integer dd_id;
     String customerId;
     String customerName;
     String customerType;

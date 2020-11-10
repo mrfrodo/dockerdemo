@@ -42,6 +42,16 @@ public class CustomerService {
         return null;
     }
 
+    public CustomerResponseDTO getCustomer2(String cid) {
+        Optional<CustomerEntity> optionalCustomer = customerRepository.findByIdWithCustomRowMapper(cid);
+        if (optionalCustomer.isPresent()) {
+            CustomerEntity customerEntity = optionalCustomer.get();
+            CustomerResponseDTO customerResponseDTO = convertToDto(customerEntity);
+            return customerResponseDTO;
+        }
+        return null;
+    }
+
     public List<CustomerEntity> getAllCustomers() {
         List<CustomerEntity> allCustomers = customerRepository.findAll();
         return allCustomers;

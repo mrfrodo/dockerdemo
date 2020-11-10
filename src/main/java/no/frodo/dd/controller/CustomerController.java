@@ -37,7 +37,9 @@ public class CustomerController {
     @GetMapping
     CustomerResponseDTO getCustomer(@RequestParam String cid) {
         System.out.println("** get one");
-        return customerService.getCustomer(cid);
+        CustomerResponseDTO customer = customerService.getCustomer(cid);
+        CustomerResponseDTO customer2 = customerService.getCustomer2(cid);
+        return customer;
     }
 
     @GetMapping("all")
