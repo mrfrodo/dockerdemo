@@ -40,7 +40,8 @@ public class CustomerRepository {
     }
 
     public int deleteAll () {
-        return jdbcTemplate.update("delete from customer");
+        String SQL = "delete from customer";
+        return jdbcTemplate.update(SQL);
     }
 
     public int update(CustomerResponseDTO customerResponseDTO) {

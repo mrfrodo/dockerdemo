@@ -28,18 +28,24 @@ public class CustomerController {
         return customerService.updateCustomer(customerRequestDTO);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/one")
     int deleteCustomer(@RequestParam String cid) {
-        System.out.println("** delete");
+        System.out.println("** delete one");
         return customerService.deleteCustomer(cid);
+    }
+
+    @DeleteMapping()
+    int deleteAllCustomer() {
+        System.out.println("** delete all");
+        return customerService.deleteAllCustomer();
     }
 
     @GetMapping
     CustomerResponseDTO getCustomer(@RequestParam String cid) {
         System.out.println("** get one");
-        CustomerResponseDTO customer = customerService.getCustomer(cid);
+        //CustomerResponseDTO customer = customerService.getCustomer(cid);
         CustomerResponseDTO customer2 = customerService.getCustomer2(cid);
-        return customer;
+        return customer2;
     }
 
     @GetMapping("all")
