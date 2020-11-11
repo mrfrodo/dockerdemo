@@ -8,6 +8,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,11 +23,13 @@ public class CustomerRepository {
         return jdbcTemplate .queryForObject("select count(*) from customer", Integer.class);
     }
 
-    public int save(CustomerRequestDTO customerRequestDTO, String customerId) {
+    public int save(CustomerRequestDTO customerRequestDTO, String customerId, LocalDateTime customerCreationDate) {
         int updated = 0;
         try {
-            updated = jdbcTemplate.update("insert into public.customer (customer_id, customer_name, customer_type, customer_owner) values(?,?,?,?)",
-                    customerId, customerRequestDTO.getCustomerName(), customerRequestDTO.getCustomerType(), customerRequestDTO.getCustomerOwner());
+            String SQL = "insert into public.customer (customer_id, customer_name, customer_type, " +
+                    "customer_owner, customer_creationdate) values(?,?,?,?,?)";
+            updated = jdbcTemplate.update(SQL, customerId, customerRequestDTO.getCustomerName(),
+                    customerRequestDTO.getCustomerType(), customerRequestDTO.getCustomerOwner(), customerCreationDate);
         } catch (Exception e) {
             System.out.println("  ** Error " + e.getMessage());
         }
@@ -65,7 +69,7 @@ public class CustomerRepository {
                                 rs.getString("customer_name"),
                                 rs.getString("customer_type"),
                                 rs.getString("customer_owner"),
-                                rs.getDate("customer_creationdate")
+                                rs.getTimestamp("customer_creationdate")
                         ));
                     }
             );
@@ -103,7 +107,7 @@ public class CustomerRepository {
                                 rs.getString("customer_name"),
                                 rs.getString("customer_type"),
                                 rs.getString("customer_owner"),
-                                rs.getDate("customer_creationdate")
+                                rs.getTimestamp("customer_creationdate")
                         )
         );
 

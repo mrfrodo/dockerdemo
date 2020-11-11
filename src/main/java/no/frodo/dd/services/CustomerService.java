@@ -7,8 +7,15 @@ import no.frodo.dd.repository.CustomerRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class CustomerService {
@@ -20,8 +27,13 @@ public class CustomerService {
     ModelMapper modelMapper;
 
     public int saveCustomer(CustomerRequestDTO customerRequestDTO) {
+
+        LocalDateTime customerCreationDate = LocalDateTime.now();
+        System.out.println(customerCreationDate.toString());
+        ZonedDateTime zonedDateTime = ZonedDateTime.now();
+        System.out.println(zonedDateTime.toString());
         String customerId = createCustomerId(customerRequestDTO);
-        return customerRepository.save(customerRequestDTO, customerId);
+        return customerRepository.save(customerRequestDTO, customerId, customerCreationDate);
     }
 
     public int updateCustomer(CustomerRequestDTO customerRequestDTO) {
@@ -71,6 +83,8 @@ public class CustomerService {
 
     protected CustomerResponseDTO convertToDto(CustomerEntity customerEntity) {
         CustomerResponseDTO customerResponseDTO = modelMapper.map(customerEntity, CustomerResponseDTO.class);
+        customerResponseDTO.
+                setCustomerCreationDate(customerEntity.getCustomer_creationdate().toLocalDateTime());
         return customerResponseDTO;
     }
 

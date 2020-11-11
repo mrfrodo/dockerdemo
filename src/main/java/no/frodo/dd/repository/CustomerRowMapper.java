@@ -5,6 +5,8 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class CustomerRowMapper implements RowMapper<CustomerEntity> {
@@ -24,7 +26,7 @@ public class CustomerRowMapper implements RowMapper<CustomerEntity> {
         customer.setCustomerName((String)customer_name);
         customer.setCustomerType((String)customer_type);
         customer.setCustomerOwner((String)customer_owner);
-        customer.setCustomer_creationdate((Date)customer_creationdate);
+        customer.setCustomer_creationdate((Timestamp) customer_creationdate);
 
         return customer;
     }

@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Builder
@@ -18,5 +19,5 @@ public class CustomerEntity {
     String customerName;
     String customerType;
     String customerOwner;
-    Date customer_creationdate;
+    Timestamp customer_creationdate;
 }
