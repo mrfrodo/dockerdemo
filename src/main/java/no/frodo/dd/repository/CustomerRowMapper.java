@@ -20,6 +20,7 @@ public class CustomerRowMapper implements RowMapper<CustomerEntity> {
         Object customer_type = rs.getObject("customer_type");
         Object customer_owner = rs.getObject("customer_owner");
         Object customer_creationdate = rs.getObject("customer_creationdate");
+        Object customer_updatedate = rs.getObject("customer_updatedate");
 
         customer.setDd_id((Integer)dd_id);
         customer.setCustomerId((String)customer_id);
@@ -27,6 +28,7 @@ public class CustomerRowMapper implements RowMapper<CustomerEntity> {
         customer.setCustomerType((String)customer_type);
         customer.setCustomerOwner((String)customer_owner);
         customer.setCustomer_creationdate((Timestamp) customer_creationdate);
+        customer.setCustomer_updatedate((Timestamp) customer_updatedate);
 
         return customer;
     }

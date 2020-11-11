@@ -22,7 +22,7 @@ public class CustomerController {
     HttpServletRequest request;
 
     @PostMapping
-    int saveCustomer(@RequestBody CustomerRequestDTO customerRequestDTO) {
+    CustomerResponseDTO saveCustomer(@RequestBody CustomerRequestDTO customerRequestDTO) {
         System.out.println("** save");
         return customerService.saveCustomer(customerRequestDTO);
     }

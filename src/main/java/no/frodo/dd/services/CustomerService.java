@@ -26,11 +26,16 @@ public class CustomerService {
     @Autowired
     ModelMapper modelMapper;
 
-    public int saveCustomer(CustomerRequestDTO customerRequestDTO) {
+    public CustomerResponseDTO saveCustomer(CustomerRequestDTO customerRequestDTO) {
 
         LocalDateTime now = LocalDateTime.now();
         String customerId = createCustomerId(customerRequestDTO);
-        return customerRepository.save(customerRequestDTO, customerId, now);
+        int updated = customerRepository.save(customerRequestDTO, customerId, now);
+        if (updated != 0) {
+            CustomerResponseDTO customer = getCustomer2(customerId);
+            return customer;
+        }
+        return null;
     }
 
     public int updateCustomer(CustomerRequestDTO customerRequestDTO) {
@@ -82,6 +87,8 @@ public class CustomerService {
         CustomerResponseDTO customerResponseDTO = modelMapper.map(customerEntity, CustomerResponseDTO.class);
         customerResponseDTO.
                 setCustomerCreationDate(customerEntity.getCustomer_creationdate().toLocalDateTime());
+        customerResponseDTO.
+                setCustomerUpdateDate(customerEntity.getCustomer_updatedate().toLocalDateTime());
         return customerResponseDTO;
     }
 

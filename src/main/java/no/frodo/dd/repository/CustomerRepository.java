@@ -27,7 +27,8 @@ public class CustomerRepository {
         int updated = 0;
         try {
             String SQL = "insert into public.customer (customer_id, customer_name, customer_type, " +
-                    "customer_owner, customer_creationdate, customer_updatedate) values(?,?,?,?,?,?)";
+                    "customer_owner, customer_creationdate, customer_upda" +
+                    "tedate) values(?,?,?,?,?,?)";
             updated = jdbcTemplate.update(SQL, customerId, customerRequestDTO.getCustomerName(),
                     customerRequestDTO.getCustomerType(), customerRequestDTO.getCustomerOwner(), now, now);
         } catch (Exception e) {
@@ -57,8 +58,10 @@ public class CustomerRepository {
 
     public Optional<CustomerEntity> findById(String cid) {
         try {
+            String SQL = "select dd_id,customer_id,customer_name,customer_type,customer_owner," +
+                    "customer_creationdate,customer_updatedate from customer where customer_id = ?";
             Optional<CustomerEntity> customerEntity = jdbcTemplate.queryForObject(
-                    "select dd_id,customer_id,customer_name,customer_type,customer_owner,customer_creationdate from customer where customer_id = ?",
+                    SQL,
                     new Object[]{cid},
                     (rs, rowNum) ->
                     {
@@ -69,7 +72,8 @@ public class CustomerRepository {
                                 rs.getString("customer_name"),
                                 rs.getString("customer_type"),
                                 rs.getString("customer_owner"),
-                                rs.getTimestamp("customer_creationdate")
+                                rs.getTimestamp("customer_creationdate"),
+                                rs.getTimestamp("customer_updatedate")
                         ));
                     }
             );
@@ -85,8 +89,9 @@ public class CustomerRepository {
 
     public Optional<CustomerEntity> findByIdWithCustomRowMapper(String cid) {
         try {
-            String sql = "select dd_id,customer_id,customer_name,customer_type,customer_owner,customer_creationdate from customer where customer_id = ?";
-            CustomerEntity customerEntity = jdbcTemplate.queryForObject(sql, new Object[]{cid}, new CustomerRowMapper());
+            String SQL = "select dd_id,customer_id,customer_name,customer_type,customer_owner,customer_creationdate,customer_updatedate" +
+                    " from customer where customer_id = ?";
+            CustomerEntity customerEntity = jdbcTemplate.queryForObject(SQL, new Object[]{cid}, new CustomerRowMapper());
             return Optional.of(customerEntity);
         } catch (EmptyResultDataAccessException e) {
             System.out.println("EMPTY DATA BACK ERROR " + e.getMessage());
@@ -98,8 +103,10 @@ public class CustomerRepository {
     }
 
     public List<CustomerEntity> findAll() {
+        String SQL = "select dd_id,customer_id,customer_name,customer_type,customer_owner,customer_creationdate,customer_updatedate " +
+                "from customer";
         List<CustomerEntity> customerEntity = jdbcTemplate.query(
-                "select dd_id,customer_id,customer_name,customer_type,customer_owner,customer_creationdate from customer",
+                SQL,
                 (rs, rowNum) ->
                         new CustomerEntity(
                                 (Integer)rs.getObject("dd_id"),
@@ -107,7 +114,8 @@ public class CustomerRepository {
                                 rs.getString("customer_name"),
                                 rs.getString("customer_type"),
                                 rs.getString("customer_owner"),
-                                rs.getTimestamp("customer_creationdate")
+                                rs.getTimestamp("customer_creationdate"),
+                                rs.getTimestamp("customer_updatedate")
                         )
         );
 

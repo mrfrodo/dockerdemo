@@ -20,4 +20,5 @@ public class CustomerEntity {
     String customerType;
     String customerOwner;
     Timestamp customer_creationdate;
+    Timestamp customer_updatedate;
 }
