@@ -9,3 +9,5 @@ create table if not exists customer (
   customer_updatedate timestamptz
 );
 
+drop table customer;
+

@@ -23,13 +23,13 @@ public class CustomerRepository {
         return jdbcTemplate .queryForObject("select count(*) from customer", Integer.class);
     }
 
-    public int save(CustomerRequestDTO customerRequestDTO, String customerId, LocalDateTime customerCreationDate) {
+    public int save(CustomerRequestDTO customerRequestDTO, String customerId, LocalDateTime now) {
         int updated = 0;
         try {
             String SQL = "insert into public.customer (customer_id, customer_name, customer_type, " +
-                    "customer_owner, customer_creationdate) values(?,?,?,?,?)";
+                    "customer_owner, customer_creationdate, customer_updatedate) values(?,?,?,?,?,?)";
             updated = jdbcTemplate.update(SQL, customerId, customerRequestDTO.getCustomerName(),
-                    customerRequestDTO.getCustomerType(), customerRequestDTO.getCustomerOwner(), customerCreationDate);
+                    customerRequestDTO.getCustomerType(), customerRequestDTO.getCustomerOwner(), now, now);
         } catch (Exception e) {
             System.out.println("  ** Error " + e.getMessage());
         }

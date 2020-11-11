@@ -28,12 +28,9 @@ public class CustomerService {
 
     public int saveCustomer(CustomerRequestDTO customerRequestDTO) {
 
-        LocalDateTime customerCreationDate = LocalDateTime.now();
-        System.out.println(customerCreationDate.toString());
-        ZonedDateTime zonedDateTime = ZonedDateTime.now();
-        System.out.println(zonedDateTime.toString());
+        LocalDateTime now = LocalDateTime.now();
         String customerId = createCustomerId(customerRequestDTO);
-        return customerRepository.save(customerRequestDTO, customerId, customerCreationDate);
+        return customerRepository.save(customerRequestDTO, customerId, now);
     }
 
     public int updateCustomer(CustomerRequestDTO customerRequestDTO) {
