@@ -56,3 +56,7 @@ psql -h localhost -p 5432 -U user1 -d dockerdb
 
 ### When all is set up
 docker start pgl
+
+
+##### actuator
+curl localhost:8080/actuator/health
