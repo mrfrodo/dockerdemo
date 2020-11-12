@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
 import java.util.List;
 
 @RestController
@@ -24,13 +23,13 @@ public class CustomerController {
     @PostMapping
     CustomerResponseDTO saveCustomer(@RequestBody CustomerRequestDTO customerRequestDTO) {
         System.out.println("** save");
-        return customerService.saveCustomer(customerRequestDTO);
+        return customerService.saveOrUpdateCustomer(customerRequestDTO);
     }
 
     @PutMapping
-    int updateCustomer(@RequestBody CustomerRequestDTO customerRequestDTO) {
-        System.out.println("** save");
-        return customerService.updateCustomer(customerRequestDTO);
+    CustomerResponseDTO updateCustomer(@RequestBody CustomerRequestDTO customerRequestDTO) {
+        System.out.println("** update");
+        return customerService.saveOrUpdateCustomer(customerRequestDTO);
     }
 
     @DeleteMapping("/one")

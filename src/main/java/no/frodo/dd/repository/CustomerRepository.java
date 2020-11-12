@@ -24,13 +24,28 @@ public class CustomerRepository {
     }
 
     public int save(CustomerRequestDTO customerRequestDTO, String customerId, LocalDateTime now) {
-        int updated = 0;
+        int saved = 0;
         try {
             String SQL = "insert into public.customer (customer_id, customer_name, customer_type, " +
                     "customer_owner, customer_creationdate, customer_upda" +
                     "tedate) values(?,?,?,?,?,?)";
-            updated = jdbcTemplate.update(SQL, customerId, customerRequestDTO.getCustomerName(),
+            saved = jdbcTemplate.update(SQL, customerId, customerRequestDTO.getCustomerName(),
                     customerRequestDTO.getCustomerType(), customerRequestDTO.getCustomerOwner(), now, now);
+        } catch (Exception e) {
+            System.out.println("  ** Error " + e.getMessage());
+        }
+
+        return saved;
+
+    }
+
+    public int update(CustomerRequestDTO customerRequestDTO, String customerId, LocalDateTime now) {
+        int updated = 0;
+        try {
+            String SQL = "update public.customer set customer_name = ?, customer_type = ?, customer_owner = ?, customer_updatedate = ? " +
+                    "where customer_id = ?";
+            updated = jdbcTemplate.update(SQL, customerRequestDTO.getCustomerName(),
+                    customerRequestDTO.getCustomerType(), customerRequestDTO.getCustomerOwner(), now, customerRequestDTO.getCustomerId());
         } catch (Exception e) {
             System.out.println("  ** Error " + e.getMessage());
         }
@@ -47,13 +62,6 @@ public class CustomerRepository {
     public int deleteAll () {
         String SQL = "delete from customer";
         return jdbcTemplate.update(SQL);
-    }
-
-    public int update(CustomerResponseDTO customerResponseDTO) {
-        int update = jdbcTemplate.update(
-                "update customer set customer_name = ?, customer_type = ?, customer_owner = ?, customer_creationdate = ? " +
-                        "where custoner_id = ?");
-        return update;
     }
 
     public Optional<CustomerEntity> findById(String cid) {
@@ -115,8 +123,7 @@ public class CustomerRepository {
                                 rs.getString("customer_type"),
                                 rs.getString("customer_owner"),
                                 rs.getTimestamp("customer_creationdate"),
-                                rs.getTimestamp("customer_updatedate")
-                        )
+                                rs.getTimestamp("customer_updatedate"))
         );
 
         return customerEntity;

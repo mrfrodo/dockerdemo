@@ -3,6 +3,10 @@ curl -i -X POST -L localhost:8080/c \
   --data-binary "@src/test/resources/createCustomer.json"
   
   
+curl -i -X POST -L localhost:8080/c \
+  -H "Content-Type: application/json" \
+  --data-binary "@src/test/resources/updateCustomer.json"
+  
 curl -i -X GET -L localhost:8080/c?cid=frodo_inc 
 
 curl -i -X GET -L localhost:8080/c/all

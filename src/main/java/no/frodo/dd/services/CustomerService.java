@@ -26,20 +26,30 @@ public class CustomerService {
     @Autowired
     ModelMapper modelMapper;
 
-    public CustomerResponseDTO saveCustomer(CustomerRequestDTO customerRequestDTO) {
+    public CustomerResponseDTO saveOrUpdateCustomer(CustomerRequestDTO customerRequestDTO) {
 
         LocalDateTime now = LocalDateTime.now();
-        String customerId = createCustomerId(customerRequestDTO);
-        int updated = customerRepository.save(customerRequestDTO, customerId, now);
-        if (updated != 0) {
-            CustomerResponseDTO customer = getCustomer2(customerId);
-            return customer;
+        if (customerRequestDTO.getCustomerId() == null) {
+            // Save new customer
+            String customerId = createCustomerId(customerRequestDTO);
+            int saved = customerRepository.save(customerRequestDTO, customerId, now);
+            if (saved != 0) {
+                CustomerResponseDTO customer = getCustomer2(customerId);
+                return customer;
+            }
+        } else {
+            // Update existing customer
+            CustomerResponseDTO customerResponseDTO = getCustomer2(customerRequestDTO.getCustomerId());
+            if (customerResponseDTO != null) {
+                int updated = customerRepository.update(customerRequestDTO, customerRequestDTO.getCustomerId(), now);
+                if (updated != 0) {
+                    CustomerResponseDTO customer = getCustomer2(customerRequestDTO.getCustomerId());
+                    return customer;
+                }
+            }
         }
-        return null;
-    }
 
-    public int updateCustomer(CustomerRequestDTO customerRequestDTO) {
-        return 0;
+        return null;
     }
 
     public int deleteCustomer(String cid) {
