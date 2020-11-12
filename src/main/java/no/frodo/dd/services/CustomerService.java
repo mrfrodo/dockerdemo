@@ -6,6 +6,7 @@ import no.frodo.dd.domain.CustomerResponseDTO;
 import no.frodo.dd.repository.CustomerRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -70,6 +71,7 @@ public class CustomerService {
         return null;
     }
 
+    @Cacheable(value = "getCustomer2")
     public CustomerResponseDTO getCustomer2(String cid) {
         Optional<CustomerEntity> optionalCustomer = customerRepository.findByIdWithCustomRowMapper(cid);
         if (optionalCustomer.isPresent()) {

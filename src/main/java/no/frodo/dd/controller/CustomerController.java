@@ -26,12 +26,6 @@ public class CustomerController {
         return customerService.saveOrUpdateCustomer(customerRequestDTO);
     }
 
-    @PutMapping
-    CustomerResponseDTO updateCustomer(@RequestBody CustomerRequestDTO customerRequestDTO) {
-        System.out.println("** update");
-        return customerService.saveOrUpdateCustomer(customerRequestDTO);
-    }
-
     @DeleteMapping("/one")
     int deleteCustomer(@RequestParam String cid) {
         System.out.println("** delete one");
