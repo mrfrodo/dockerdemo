@@ -1,9 +1,12 @@
 package no.frodo.dd.controller;
 
+import no.frodo.dd.config.CacheConfig;
 import no.frodo.dd.domain.CustomerEntity;
 import no.frodo.dd.domain.CustomerRequestDTO;
 import no.frodo.dd.domain.CustomerResponseDTO;
 import no.frodo.dd.services.CustomerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +16,8 @@ import java.util.List;
 @RestController
 @RequestMapping("c")
 public class CustomerController {
+
+    private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
     @Autowired
     CustomerService customerService;
@@ -40,7 +45,7 @@ public class CustomerController {
 
     @GetMapping
     CustomerResponseDTO getCustomer(@RequestParam String cid) {
-        System.out.println("** get one");
+        logger.info("__ controller get one {}", cid);
         //CustomerResponseDTO customer = customerService.getCustomer(cid);
         CustomerResponseDTO customer2 = customerService.getCustomer2(cid);
         return customer2;
