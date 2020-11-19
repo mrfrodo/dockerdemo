@@ -1,5 +1,7 @@
 package no.frodo.dd.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
@@ -13,16 +15,18 @@ import org.springframework.scheduling.annotation.Scheduled;
 @EnableScheduling
 public class CacheConfig {
 
+    private static final Logger logger = LoggerFactory.getLogger(CacheConfig.class);
+
     @Bean
     public ConcurrentMapCacheManager cacheManager() {
         return new ConcurrentMapCacheManager("getCustomer2");
     }
 
-    //execute once every 10 second (fixedDelay=10000)
+    //execute once every 20 second (fixedDelay=10000)
     @CacheEvict(allEntries = true, cacheNames = { "getCustomer2" })
-    @Scheduled(fixedDelay = 10000)
+    @Scheduled(fixedDelay = 20000)
     public void cacheEvict() {
-        System.out.println("** evict cache");
+        logger.info("__ Evic cache {} {}", "getCustomr2", "from the system");
     }
 
 }
