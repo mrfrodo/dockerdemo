@@ -26,7 +26,7 @@ public class CustomerController {
     HttpServletRequest request;
 
     @PostMapping
-    CustomerResponseDTO saveCustomer(@RequestBody CustomerRequestDTO customerRequestDTO) {
+    CustomerResponseDTO saveOrUpdateCustomer(@RequestBody CustomerRequestDTO customerRequestDTO) {
         System.out.println("** save");
         return customerService.saveOrUpdateCustomer(customerRequestDTO);
     }
