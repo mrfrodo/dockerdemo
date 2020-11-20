@@ -31,6 +31,12 @@ public class CustomerController {
         return customerService.saveOrUpdateCustomer(customerRequestDTO);
     }
 
+    @PostMapping("/m")
+    CustomerResponseDTO saveManyCustomers(@RequestBody List<CustomerRequestDTO> customerRequestDTO) {
+        System.out.println("** save");
+        return customerService.saveManyCustomers(customerRequestDTO);
+    }
+
     @DeleteMapping("/one")
     int deleteCustomer(@RequestParam String cid) {
         System.out.println("** delete one");

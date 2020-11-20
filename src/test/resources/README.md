@@ -2,6 +2,9 @@ curl -i -X POST -L localhost:8080/c \
   -H "Content-Type: application/json" \
   --data-binary "@src/test/resources/createCustomer.json"
   
+curl -i -X POST -L localhost:8080/c/m \
+  -H "Content-Type: application/json" \
+  --data-binary "@src/test/resources/createCustomers.json"
   
 curl -i -X POST -L localhost:8080/c \
   -H "Content-Type: application/json" \

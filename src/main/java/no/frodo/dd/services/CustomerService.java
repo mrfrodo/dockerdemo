@@ -104,5 +104,7 @@ public class CustomerService {
         return customerResponseDTO;
     }
 
-
+    public CustomerResponseDTO saveManyCustomers(List<CustomerRequestDTO> customerRequestDTO) {
+        return null;
+    }
 }
