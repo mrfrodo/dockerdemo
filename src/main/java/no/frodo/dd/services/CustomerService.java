@@ -6,6 +6,7 @@ import no.frodo.dd.domain.CustomerRequestDTO;
 import no.frodo.dd.domain.CustomerResponseDTO;
 import no.frodo.dd.repository.CustomerRepository;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,6 +58,13 @@ public class CustomerService {
         return null;
     }
 
+    public int saveManyCustomers(List<CustomerRequestDTO> customerRequestDTO) {
+        for (CustomerRequestDTO crDTO : customerRequestDTO) {
+            saveOrUpdateCustomer(crDTO);
+        }
+        return 0;
+    }
+
     public int deleteCustomer(String cid) {
         return customerRepository.deleteCustomerByCustomerId(cid);
     }
@@ -104,6 +112,9 @@ public class CustomerService {
     }
 
     private String createCustomCustomerId(String s) {
+        if (StringUtils.isEmpty(s)) {
+            throw new IllegalArgumentException("Customername can not be empty");
+        }
         String substring = s.substring(0, s.length()-1);
         StringBuilder customerId = new StringBuilder();
         customerId.append(s); customerId.append("_");customerId.append(substring);
@@ -141,10 +152,5 @@ public class CustomerService {
         return customerResponseDTO;
     }
 
-    public int saveManyCustomers(List<CustomerRequestDTO> customerRequestDTO) {
-       for (CustomerRequestDTO crDTO : customerRequestDTO) {
-           saveOrUpdateCustomer(crDTO);
-        }
-       return 0;
-    }
+
 }

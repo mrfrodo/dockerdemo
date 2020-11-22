@@ -43,6 +43,11 @@
     "customerName": "1",
     "customerType": "2",
     "customerOwner": "3"
+  },
+  {
+    "customerName": "",
+    "customerType": "fff2",
+    "customerOwner": "sdf"
   }
 ]
 
