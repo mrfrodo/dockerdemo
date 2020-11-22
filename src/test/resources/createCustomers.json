@@ -38,6 +38,11 @@
     "customerName": "value1",
     "customerType": "value2",
     "customerOwner": "value2"
+  },
+  {
+    "customerName": "1",
+    "customerType": "2",
+    "customerOwner": "3"
   }
 ]
 

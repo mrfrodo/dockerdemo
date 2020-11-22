@@ -1,25 +1,29 @@
 package no.frodo.dd.services;
 
+import no.frodo.dd.controller.CustomerController;
 import no.frodo.dd.domain.CustomerEntity;
 import no.frodo.dd.domain.CustomerRequestDTO;
 import no.frodo.dd.domain.CustomerResponseDTO;
 import no.frodo.dd.repository.CustomerRepository;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.Charset;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class CustomerService {
+
+    private static final Logger logger = LoggerFactory.getLogger(CustomerService.class);
 
     @Autowired
     CustomerRepository customerRepository;
@@ -101,9 +105,31 @@ public class CustomerService {
 
     private String createCustomCustomerId(String s) {
         String substring = s.substring(0, s.length()-1);
-        String customerId= s+"_"+substring;
+        StringBuilder customerId = new StringBuilder();
+        customerId.append(s); customerId.append("_");customerId.append(substring);
+        if (substring.equals("")) {
+            String randomString = generateRandomThreeLetterString();
+            customerId.append(randomString);
+        }
 
-        return customerId;
+        return customerId.toString();
+    }
+
+    private String generateRandomThreeLetterStringUNBOUNDED() {
+        byte[] array = new byte[3]; // length is bounded by 3
+        new Random().nextBytes(array);
+        String generatedString = new String(array, Charset.forName("UTF-8"));
+        logger.warn("Created generate string {}", generatedString);
+        return generatedString;
+    }
+
+    private String generateRandomThreeLetterString() {
+        int length = 3;
+        boolean useLetters = true;
+        boolean useNumbers = false;
+        String generatedString = RandomStringUtils.random(length, useLetters, useNumbers);
+        logger.warn("Created generate string {}", generatedString);
+        return generatedString;
     }
 
     protected CustomerResponseDTO convertToDto(CustomerEntity customerEntity) {
@@ -116,8 +142,8 @@ public class CustomerService {
     }
 
     public int saveManyCustomers(List<CustomerRequestDTO> customerRequestDTO) {
-       for (CustomerRequestDTO crDDTO : customerRequestDTO) {
-           saveOrUpdateCustomer(crDDTO);
+       for (CustomerRequestDTO crDTO : customerRequestDTO) {
+           saveOrUpdateCustomer(crDTO);
         }
        return 0;
     }
