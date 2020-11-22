@@ -45,7 +45,7 @@ public class CustomerRepository {
             String SQL = "update public.customer set customer_name = ?, customer_type = ?, customer_owner = ?, customer_updatedate = ? " +
                     "where customer_id = ?";
             updated = jdbcTemplate.update(SQL, customerRequestDTO.getCustomerName(),
-                    customerRequestDTO.getCustomerType(), customerRequestDTO.getCustomerOwner(), now, customerRequestDTO.getCustomerId());
+                    customerRequestDTO.getCustomerType(), customerRequestDTO.getCustomerOwner(), now, customerId);
         } catch (Exception e) {
             System.out.println("  ** Error " + e.getMessage());
         }
