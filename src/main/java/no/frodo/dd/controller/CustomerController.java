@@ -32,7 +32,7 @@ public class CustomerController {
     }
 
     @PostMapping("/m")
-    CustomerResponseDTO saveManyCustomers(@RequestBody List<CustomerRequestDTO> customerRequestDTO) {
+    int saveManyCustomers(@RequestBody List<CustomerRequestDTO> customerRequestDTO) {
         System.out.println("** save");
         return customerService.saveManyCustomers(customerRequestDTO);
     }

@@ -90,9 +90,20 @@ public class CustomerService {
     private String createCustomerId(CustomerRequestDTO customerRequestDTO) {
         String customerName = customerRequestDTO.getCustomerName();
         String[] splitted = customerName.split(" ");
-        String customerId= splitted[0]+"_"+splitted[1];
-        return customerId;
+        if (splitted.length == 2) {
+            String customerId= splitted[0]+"_"+splitted[1];
+            return customerId;
+        } else {
+            String createdCustomCustomerId = createCustomCustomerId(splitted[0]);
+            return createdCustomCustomerId;
+        }
+    }
 
+    private String createCustomCustomerId(String s) {
+        String substring = s.substring(0, s.length()-1);
+        String customerId= s+"_"+substring;
+
+        return customerId;
     }
 
     protected CustomerResponseDTO convertToDto(CustomerEntity customerEntity) {
@@ -104,7 +115,10 @@ public class CustomerService {
         return customerResponseDTO;
     }
 
-    public CustomerResponseDTO saveManyCustomers(List<CustomerRequestDTO> customerRequestDTO) {
-        return null;
+    public int saveManyCustomers(List<CustomerRequestDTO> customerRequestDTO) {
+       for (CustomerRequestDTO crDDTO : customerRequestDTO) {
+           saveOrUpdateCustomer(crDDTO);
+        }
+       return 0;
     }
 }

@@ -26,7 +26,7 @@ public class CacheConfig {
     @CacheEvict(allEntries = true, cacheNames = { "getCustomer2" })
     @Scheduled(fixedDelay = 20000)
     public void cacheEvict() {
-        logger.info("__ Evic cache {} {}", "getCustomr2", "from the system");
+        logger.debug("__ Evic cache {} {}", "getCustomr2", "from the system");
     }
 
 }
