@@ -4,6 +4,7 @@ import no.frodo.dd.controller.CustomerController;
 import no.frodo.dd.domain.CustomerEntity;
 import no.frodo.dd.domain.CustomerRequestDTO;
 import no.frodo.dd.domain.CustomerResponseDTO;
+import no.frodo.dd.exception.NoDataFoundException;
 import no.frodo.dd.repository.CustomerRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -91,7 +92,7 @@ public class CustomerService {
             CustomerResponseDTO customerResponseDTO = convertToDto(customerEntity);
             return customerResponseDTO;
         }
-        return null;
+        throw new NoDataFoundException();
     }
 
     public List<CustomerEntity> getAllCustomers() {
