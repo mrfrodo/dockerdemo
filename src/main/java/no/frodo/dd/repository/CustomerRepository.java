@@ -68,7 +68,7 @@ public class CustomerRepository {
     }
 
     public Optional<CustomerEntity> findById(String cid) {
-        System.out.println(" ************* findById");
+        logger.info("_rr_ findById {}", cid);
         try {
             String SQL = "select dd_id,customer_id,customer_name,customer_type,customer_owner," +
                     "customer_creationdate,customer_updatedate from customer where customer_id = ?";
@@ -100,7 +100,7 @@ public class CustomerRepository {
     }
 
     public Optional<CustomerEntity> findByIdWithCustomRowMapper(String cid) {
-        System.out.println(" ************* findByIdWithCustomRowMapper");
+        logger.info("_rr_ findByIdWithCustomRowMapper {}", cid);
         try {
             String SQL = "select dd_id,customer_id,customer_name,customer_type,customer_owner,customer_creationdate,customer_updatedate" +
                     " from customer where customer_id = ?";

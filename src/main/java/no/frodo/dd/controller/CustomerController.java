@@ -27,31 +27,31 @@ public class CustomerController {
 
     @PostMapping
     CustomerResponseDTO saveOrUpdateCustomer(@RequestBody CustomerRequestDTO customerRequestDTO) {
-        System.out.println("** save");
+        logger.info("_cc_ save");
         return customerService.saveOrUpdateCustomer(customerRequestDTO);
     }
 
     @PostMapping("/m")
     int saveManyCustomers(@RequestBody List<CustomerRequestDTO> customerRequestDTO) {
-        System.out.println("** save");
+        logger.info("_cc_ save many");
         return customerService.saveManyCustomers(customerRequestDTO);
     }
 
     @DeleteMapping("/one")
     int deleteCustomer(@RequestParam String cid) {
-        System.out.println("** delete one");
+        logger.info("_cc_ delete one");
         return customerService.deleteCustomer(cid);
     }
 
     @DeleteMapping()
     int deleteAllCustomer() {
-        System.out.println("** delete all");
+        logger.info("_cc_ delete all");
         return customerService.deleteAllCustomer();
     }
 
     @GetMapping
     CustomerResponseDTO getCustomer(@RequestParam String cid) {
-        logger.info("__ controller get one {}", cid);
+        logger.info("_cc_ controller get one {}", cid);
         //CustomerResponseDTO customer = customerService.getCustomer(cid);
         CustomerResponseDTO customer2 = customerService.getCustomer2(cid);
         return customer2;
@@ -59,7 +59,7 @@ public class CustomerController {
 
     @GetMapping("all")
     List<CustomerEntity> getAllCustomers() {
-        System.out.println("** get all");
+        logger.info("_cc_ get all");
         return customerService.getAllCustomers();
     }
 }
