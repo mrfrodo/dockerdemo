@@ -1,8 +1,11 @@
 package no.frodo.dd.repository;
 
+import no.frodo.dd.controller.CustomerController;
 import no.frodo.dd.domain.CustomerEntity;
 import no.frodo.dd.domain.CustomerRequestDTO;
 import no.frodo.dd.domain.CustomerResponseDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,6 +18,8 @@ import java.util.Optional;
 
 @Repository
 public class CustomerRepository {
+
+    private static final Logger logger = LoggerFactory.getLogger(CustomerRepository.class);
 
     @Autowired
     JdbcTemplate jdbcTemplate;
@@ -32,11 +37,9 @@ public class CustomerRepository {
             saved = jdbcTemplate.update(SQL, customerId, customerRequestDTO.getCustomerName(),
                     customerRequestDTO.getCustomerType(), customerRequestDTO.getCustomerOwner(), now, now);
         } catch (Exception e) {
-            System.out.println("  ** Error " + e.getMessage());
+            logger.error("__ ** Error {}", e.getMessage());
         }
-
         return saved;
-
     }
 
     public int update(CustomerRequestDTO customerRequestDTO, String customerId, LocalDateTime now) {
