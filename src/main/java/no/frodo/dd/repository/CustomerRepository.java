@@ -50,7 +50,7 @@ public class CustomerRepository {
             updated = jdbcTemplate.update(SQL, customerRequestDTO.getCustomerName(),
                     customerRequestDTO.getCustomerType(), customerRequestDTO.getCustomerOwner(), now, customerId);
         } catch (Exception e) {
-            System.out.println("  ** Error " + e.getMessage());
+            logger.error("  ** Error {}", e.getMessage());
         }
 
         return updated;
