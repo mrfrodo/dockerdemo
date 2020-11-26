@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,9 @@ public class ExcpetionHandlers extends ResponseEntityExceptionHandler {
     @ExceptionHandler(NoDataFoundException.class)
     public ResponseEntity<Object> nodataFoundException(NoDataFoundException ex, WebRequest request) {
         Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", LocalDateTime.now());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formatDateTime = LocalDateTime.now().format(formatter);
+        body.put("timestamp", formatDateTime);
         body.put("message", "no data found");
 
         return handleExceptionInternal(ex, body, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
