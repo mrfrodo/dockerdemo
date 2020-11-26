@@ -25,6 +25,10 @@ curl -i -X DELETE -L localhost:8080/c
 curl -i -X POST -L localhost:8080/p \
   -H "Content-Type: application/json" \
   --data-binary "@src/test/resources/poem.json" 
+  
+curl -i -X POST -L localhost:8080/p \
+  -H "Content-Type: application/json" \
+  --data-binary "@src/test/resources/illegalpoem.json" 
 
  
    

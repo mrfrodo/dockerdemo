@@ -38,6 +38,17 @@ public class ExcpetionHandlers extends ResponseEntityExceptionHandler {
         //return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(IllegalPoemException.class)
+    public ResponseEntity<Object> illegalPoemException(IllegalPoemException ex, WebRequest request) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formatDateTime = LocalDateTime.now().format(formatter);
+        body.put("timestamp", formatDateTime);
+        body.put("message", "illegal poem");
+
+        return handleExceptionInternal(ex, body, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid( MethodArgumentNotValidException ex, HttpHeaders headers,
             HttpStatus status, WebRequest request) {

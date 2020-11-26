@@ -2,6 +2,7 @@ package no.frodo.dd.services;
 
 import no.frodo.dd.domain.*;
 import no.frodo.dd.exception.DDInternalException;
+import no.frodo.dd.exception.IllegalPoemException;
 import no.frodo.dd.exception.NoDataFoundException;
 import no.frodo.dd.repository.CustomerRepository;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -37,6 +38,10 @@ public class PoemService {
     }
 
     protected void validateRequest(PoemRequestDTO customerRequestDTO) {
+
+        if (customerRequestDTO.getPoem().isEmpty()) {
+            throw new IllegalPoemException();
+        }
 
         logger.info("validate poem {}", customerRequestDTO.getPoem());
 
