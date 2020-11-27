@@ -1,10 +1,9 @@
 package no.frodo.dd.controller;
 
-import no.frodo.dd.config.CacheConfig;
 import no.frodo.dd.domain.CustomerEntity;
 import no.frodo.dd.domain.CustomerRequestDTO;
 import no.frodo.dd.domain.CustomerResponseDTO;
-import no.frodo.dd.services.CustomerService;
+import no.frodo.dd.service.CustomerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

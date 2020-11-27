@@ -1,24 +1,12 @@
-package no.frodo.dd.services;
+package no.frodo.dd.service;
 
 import no.frodo.dd.domain.*;
-import no.frodo.dd.exception.DDInternalException;
 import no.frodo.dd.exception.IllegalPoemException;
-import no.frodo.dd.exception.NoDataFoundException;
-import no.frodo.dd.repository.CustomerRepository;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-
-import java.nio.charset.Charset;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
 
 @Service
 public class PoemService {

@@ -1,4 +1,4 @@
-package no.frodo.dd.services;
+package no.frodo.dd.service;
 
 import no.frodo.dd.domain.CustomerEntity;
 import no.frodo.dd.domain.CustomerRequestDTO;
