@@ -91,10 +91,10 @@ public class CustomerRepository {
             );
             return customerEntity;
         } catch (EmptyResultDataAccessException e) {
-            System.out.println("EMPTY DATA BACK ERROR " + e.getMessage());
+            logger.error("  *ee*  ERROR: EMPTY DATA BACK ERROR {}",e.getMessage());
             return Optional.empty();
         } catch (Exception e) {
-            System.out.println("UNKNOWN ERROR " + e.getMessage());
+            logger.error("  *ee*  ERROR: UNKNOWN ERROR {}",e.getMessage());
             return Optional.empty();
         }
     }
@@ -107,10 +107,10 @@ public class CustomerRepository {
             CustomerEntity customerEntity = jdbcTemplate.queryForObject(SQL, new Object[]{cid}, new CustomerRowMapper());
             return Optional.of(customerEntity);
         } catch (EmptyResultDataAccessException e) {
-            System.out.println("EMPTY DATA BACK ERROR " + e.getMessage());
+            logger.error("  *ee*  ERROR: EMPTY DATA BACK ERROR {}",e.getMessage());
             return Optional.empty();
         } catch (Exception e) {
-            System.out.println("UNKNOWN ERROR " + e.getMessage());
+            logger.error("  *ee*  ERROR: UNKNOWN ERROR {}",e.getMessage());
             return Optional.empty();
         }
     }
